@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wwP-wt-Pdf">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="ChalkboardSE.ttc">
+            <string>ChalkboardSE-Regular</string>
+        </array>
+        <array key="CourierNew.ttf">
+            <string>CourierNewPSMT</string>
+        </array>
+        <array key="CourierNewItalic.ttf">
+            <string>CourierNewPS-ItalicMT</string>
+        </array>
+        <array key="HiraginoMincho.ttc">
+            <string>HiraMinProN-W6</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Current Weather View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="CurrentWeatherViewController" customModule="Weather_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="weather" translatesAutoresizingMaskIntoConstraints="NO" id="CUN-tz-hpI">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Timezone" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JxV-Dp-NlU">
+                                <rect key="frame" x="20" y="162.5" width="335" height="40"/>
+                                <fontDescription key="fontDescription" name="CourierNewPS-ItalicMT" family="Courier New" pointSize="35"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Temperature Unit" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6fA-7j-fCs">
+                                <rect key="frame" x="20" y="308" width="335" height="28.5"/>
+                                <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Summary" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QOp-2p-1Ny">
+                                <rect key="frame" x="10" y="94" width="355" height="28.5"/>
+                                <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Humidity" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wpx-X2-Yod">
+                                <rect key="frame" x="20" y="376.5" width="335" height="34"/>
+                                <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="30"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="37" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aKX-f5-jMS">
+                                <rect key="frame" x="20" y="252.5" width="335" height="45.5"/>
+                                <fontDescription key="fontDescription" name="CourierNewPS-ItalicMT" family="Courier New" pointSize="40"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="6fA-7j-fCs" secondAttribute="trailing" constant="20" id="26a-YT-XL7"/>
+                            <constraint firstItem="wpx-X2-Yod" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="8QM-gC-9yv"/>
+                            <constraint firstItem="CUN-tz-hpI" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="8u8-JQ-dvb"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="QOp-2p-1Ny" secondAttribute="trailing" constant="10" id="CYR-7p-J0X"/>
+                            <constraint firstItem="6fA-7j-fCs" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Dsa-2R-ki3"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="aKX-f5-jMS" secondAttribute="trailing" constant="20" id="Iw3-nS-siU"/>
+                            <constraint firstItem="CUN-tz-hpI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Llc-mX-mxb"/>
+                            <constraint firstItem="JxV-Dp-NlU" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="LqC-77-kPj"/>
+                            <constraint firstItem="QOp-2p-1Ny" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="PFo-fu-y6r"/>
+                            <constraint firstItem="aKX-f5-jMS" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="RbE-nv-eGm"/>
+                            <constraint firstItem="QOp-2p-1Ny" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="30" id="Umr-U6-JHa"/>
+                            <constraint firstItem="6fA-7j-fCs" firstAttribute="top" secondItem="aKX-f5-jMS" secondAttribute="bottom" constant="10" id="WIM-PW-9uq"/>
+                            <constraint firstItem="wpx-X2-Yod" firstAttribute="top" secondItem="6fA-7j-fCs" secondAttribute="bottom" constant="40" id="hxd-T2-hGE"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wpx-X2-Yod" secondAttribute="trailing" constant="20" id="pdU-a0-Adi"/>
+                            <constraint firstItem="aKX-f5-jMS" firstAttribute="top" secondItem="JxV-Dp-NlU" secondAttribute="bottom" constant="50" id="uAL-W1-BSi"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="CUN-tz-hpI" secondAttribute="bottom" id="uji-p5-Z2U"/>
+                            <constraint firstItem="JxV-Dp-NlU" firstAttribute="top" secondItem="QOp-2p-1Ny" secondAttribute="bottom" constant="40" id="vqF-e4-6Ag"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="CUN-tz-hpI" secondAttribute="trailing" id="zTz-uj-k8g"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="JxV-Dp-NlU" secondAttribute="trailing" constant="20" id="zf3-me-EAF"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="backgroundImageView" destination="CUN-tz-hpI" id="4Wo-9i-4jM"/>
+                        <outlet property="humidity" destination="wpx-X2-Yod" id="CPJ-XV-OFV"/>
+                        <outlet property="summary" destination="QOp-2p-1Ny" id="qnH-RT-vdK"/>
+                        <outlet property="temperature" destination="aKX-f5-jMS" id="z8o-W4-COK"/>
+                        <outlet property="temperatureUnit" destination="6fA-7j-fCs" id="9gS-rO-M7N"/>
+                        <outlet property="timeZone" destination="JxV-Dp-NlU" id="7k0-Hz-BFh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1525.5999999999999" y="149.77511244377811"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Tyh-TH-LHl">
+            <objects>
+                <navigationController id="wwP-wt-Pdf" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Og3-ur-1Z4">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="h9a-V7-2uc" kind="relationship" relationship="rootViewController" id="xtz-Lk-bb5"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Yhg-fQ-wf5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-260" y="138"/>
+        </scene>
+        <!--Login View Controller-->
+        <scene sceneID="96E-ck-hbB">
+            <objects>
+                <viewController id="h9a-V7-2uc" customClass="LoginViewController" customModule="Weather_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7eY-iQ-d2v">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="weather" translatesAutoresizingMaskIntoConstraints="NO" id="bWe-M1-dh2">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello!!!  Please Enter GPS Coordinates for Weather Information..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FbZ-1r-rgn">
+                                <rect key="frame" x="51" y="114" width="273" height="106.5"/>
+                                <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="I0B-2g-cNO" userLabel="Latitude Stack View">
+                                <rect key="frame" x="86.5" y="290.5" width="202.5" height="32"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Latitude:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sB2-Eo-s3m">
+                                        <rect key="frame" x="0.0" y="0.0" width="87.5" height="32"/>
+                                        <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="22"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Latitude" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZXw-fK-D2r">
+                                        <rect key="frame" x="117.5" y="0.0" width="85" height="32"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="22"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" textContentType="tel"/>
+                                    </textField>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="RJH-wI-3ii" userLabel="Longitude Stack View">
+                                <rect key="frame" x="71" y="362" width="233.5" height="32"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Longitude:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BRv-a6-pb3">
+                                        <rect key="frame" x="0.0" y="0.0" width="103" height="32"/>
+                                        <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="22"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Longitude" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TpV-v0-is7">
+                                        <rect key="frame" x="133" y="0.0" width="100.5" height="32"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="22"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" textContentType="tel"/>
+                                    </textField>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JvF-0a-PNh">
+                                <rect key="frame" x="60" y="444" width="255" height="37"/>
+                                <fontDescription key="fontDescription" name="HiraMinProN-W6" family="Hiragino Mincho ProN" pointSize="25"/>
+                                <state key="normal" title="Press to Check...">
+                                    <color key="titleColor" red="0.16132294572954842" green="0.31857410360851696" blue="0.96620899438858032" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    <color key="titleShadowColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="didTapToCheck:" destination="h9a-V7-2uc" eventType="touchUpInside" id="ZMj-hJ-res"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="FbZ-1r-rgn" firstAttribute="top" secondItem="5Wa-W2-RdT" secondAttribute="top" constant="50" id="0e0-xz-Tw6"/>
+                            <constraint firstItem="I0B-2g-cNO" firstAttribute="centerX" secondItem="7eY-iQ-d2v" secondAttribute="centerX" id="Fy8-kb-wOp"/>
+                            <constraint firstItem="RJH-wI-3ii" firstAttribute="top" secondItem="I0B-2g-cNO" secondAttribute="bottom" constant="40" id="IN4-fz-FVa"/>
+                            <constraint firstItem="5Wa-W2-RdT" firstAttribute="bottom" secondItem="bWe-M1-dh2" secondAttribute="bottom" id="QKM-jp-Vaa"/>
+                            <constraint firstItem="JvF-0a-PNh" firstAttribute="leading" secondItem="5Wa-W2-RdT" secondAttribute="leading" constant="60" id="Qtc-N5-7rx"/>
+                            <constraint firstItem="JvF-0a-PNh" firstAttribute="top" secondItem="RJH-wI-3ii" secondAttribute="bottom" constant="50" id="TF8-cC-bii"/>
+                            <constraint firstItem="RJH-wI-3ii" firstAttribute="centerX" secondItem="7eY-iQ-d2v" secondAttribute="centerX" id="TUx-C5-mQG"/>
+                            <constraint firstItem="5Wa-W2-RdT" firstAttribute="trailing" secondItem="bWe-M1-dh2" secondAttribute="trailing" id="Zkg-vA-2vN"/>
+                            <constraint firstItem="FbZ-1r-rgn" firstAttribute="leading" secondItem="5Wa-W2-RdT" secondAttribute="leading" constant="51" id="bTr-1u-gd8"/>
+                            <constraint firstItem="bWe-M1-dh2" firstAttribute="top" secondItem="7eY-iQ-d2v" secondAttribute="top" id="dfq-fk-5OC"/>
+                            <constraint firstItem="bWe-M1-dh2" firstAttribute="leading" secondItem="5Wa-W2-RdT" secondAttribute="leading" id="hwG-os-qAC"/>
+                            <constraint firstItem="5Wa-W2-RdT" firstAttribute="trailing" secondItem="FbZ-1r-rgn" secondAttribute="trailing" constant="51" id="qKZ-rs-OEb"/>
+                            <constraint firstItem="I0B-2g-cNO" firstAttribute="top" secondItem="FbZ-1r-rgn" secondAttribute="bottom" constant="70" id="qwv-jW-CmH"/>
+                            <constraint firstItem="5Wa-W2-RdT" firstAttribute="trailing" secondItem="JvF-0a-PNh" secondAttribute="trailing" constant="60" id="t6a-96-t29"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="5Wa-W2-RdT"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="5vk-YA-1HA"/>
+                    <connections>
+                        <outlet property="latitude" destination="ZXw-fK-D2r" id="MOw-a7-dxT"/>
+                        <outlet property="longitude" destination="TpV-v0-is7" id="5NY-Aq-vza"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="loadDetailsViewController" id="NYM-Tf-uiE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oqs-M1-fKp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="625" y="150"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="weather" width="1000" height="665"/>
+    </resources>
+</document>
