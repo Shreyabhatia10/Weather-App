@@ -8,15 +8,38 @@
 
 import Foundation
 import UIKit
+import CoreLocation
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, CLLocationManagerDelegate {
     
     let forecastAPIKey = "e4de2fb428a668e314ba0d8833957863"
     var weatherReport: CurrentWeather = CurrentWeather(json: [:])
+    var locationManager = CLLocationManager()
     
     @IBOutlet weak var latitude: UITextField!
     @IBOutlet weak var longitude: UITextField!
 
+    func askForLocationPermission() {
+        //ASK for permission
+        self.locationManager.requestAlwaysAuthorization()
+        self.locationManager.requestWhenInUseAuthorization()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let locationValue: CLLocationCoordinate2D = manager.location?.coordinate else {
+            return
+        }
+        self.latitude.text = String(locationValue.latitude)
+        self.longitude.text = String(locationValue.longitude)
+    }
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.navigationBar.isHidden = true
@@ -24,6 +47,7 @@ class LoginViewController: UIViewController {
         self.latitude.text = ""
         self.longitude.delegate = self
         self.latitude.delegate = self
+        askForLocationPermission()
     }
     
     //MARK:- IBActions
@@ -44,7 +68,7 @@ class LoginViewController: UIViewController {
             self.present(alert, animated: true, completion: nil)
         }
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let currentWeatherViewController = segue.destination as? CurrentWeatherViewController {
             currentWeatherViewController.weather = weatherReport
@@ -61,9 +85,9 @@ extension LoginViewController: UITextFieldDelegate {
         if string.isEmpty { return true }
         let currentText = textField.text ?? ""
         let replacementText = (currentText as NSString).replacingCharacters(in: range, with: string)
-
+        
         // only has the specified amount of decimal places.
-        return replacementText.isValidDouble(maxDecimalPlaces: 4)
+        return replacementText.isValidDouble(maxDecimalPlaces: 4) || replacementText.beginsWithNegativeSign()
     }
 
 }
@@ -84,6 +108,19 @@ extension String {
 
         return false // couldn't turn string into a valid number
     }
+    
+    func beginsWithNegativeSign() -> Bool {
+        var negativeSign = false
+        if self.first == "-" {
+            negativeSign = true
+        }
+        let remainingString = self.dropFirst()
+        if remainingString.contains("-") {
+            negativeSign = false
+        }
+        return negativeSign
+    }
+    
 }
 
 
