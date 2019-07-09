@@ -20,14 +20,10 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>For Test</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>For Testt 1</string>
-	<key>NSLocationUsageDescription</key>
-	<string>description</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>For test 2</string>
+	<string>Click allow to fetch current location</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

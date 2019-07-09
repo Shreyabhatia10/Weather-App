@@ -21,7 +21,7 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate {
 
     func askForLocationPermission() {
         //ASK for permission
-        self.locationManager.requestAlwaysAuthorization()
+//        self.locationManager.requestAlwaysAuthorization()
         self.locationManager.requestWhenInUseAuthorization()
         
         if CLLocationManager.locationServicesEnabled() {
@@ -39,6 +39,10 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate {
         self.longitude.text = String(locationValue.longitude)
     }
     
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        self.loadAlertViewController(title: "Details not Found!", message: error.localizedDescription)
+    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -52,23 +56,36 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate {
     
     //MARK:- IBActions
     @IBAction func didTapToCheck(_ sender: Any) {
-        let forecastService = ForecastAPIService(APIKey: forecastAPIKey)
+        
         if (!(latitude.text?.isEmpty)!) || (!(longitude.text?.isEmpty)!) {
-            forecastService.getForecast(latitude: Double(latitude.text!)!, longitude: Double(longitude.text!)!) { (currentWeather) in
-                if let currentWeather = currentWeather {
-                    DispatchQueue.main.sync {
-                        self.weatherReport = currentWeather
-                        self.performSegue(withIdentifier: "loadDetailsViewController", sender: self)
-                    }
-                }
-            }
+            self.fetchCurrentWeatherData()
         } else {
-            let alert = UIAlertController(title: "Details not Found!", message: "Please, enter both latitude and longitude", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+            self.loadAlertViewController(title: "Details not Found!", message: "Please, enter both latitude and longitude")
         }
     }
+    
+    func loadAlertViewController(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
 
+    fileprivate func fetchCurrentWeatherData() {
+        let forecastService = ForecastAPIService(APIKey: forecastAPIKey)
+        forecastService.getForecast(latitude: Double(latitude.text!)!, longitude: Double(longitude.text!)!) { (currentWeather) in
+            if let currentWeather = currentWeather {
+                DispatchQueue.main.sync {
+                    self.weatherReport = currentWeather
+                    self.performSegue(withIdentifier: "loadDetailsViewController", sender: self)
+                }
+            } else {
+                DispatchQueue.main.sync {
+                    self.loadAlertViewController(title: "Details not Found!", message: "Please, enter correct latitude and longitude")
+                }
+            }
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let currentWeatherViewController = segue.destination as? CurrentWeatherViewController {
             currentWeatherViewController.weather = weatherReport
