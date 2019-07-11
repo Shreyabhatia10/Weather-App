@@ -32,11 +32,18 @@ class CurrentWeatherViewController: UIViewController {
     }
     
     fileprivate func didLoadDetails() {
-        self.summary.text = self.weather.summary
-        self.temperature.text = "\(self.weather.temperature!)"
+        if let summary = self.weather.summary {
+            self.summary.text = summary
+        }
+        if let temperature = self.weather.temperature {
+            self.temperature.text = "\(temperature)"
+        }
         self.temperatureUnit.text = "Fehranite"
         self.timeZone.text = self.weather.timezone
-        self.humidity.text = "Humidity: \(self.weather.humidity!)"
+        if let humidity = self.weather.humidity {
+            self.humidity.text = "Humidity: \(humidity)"
+        }
+        
     }
 }
 

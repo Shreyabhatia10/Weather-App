@@ -15,35 +15,11 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate {
     let forecastAPIKey = "e4de2fb428a668e314ba0d8833957863"
     var weatherReport: CurrentWeather = CurrentWeather(json: [:])
     var locationManager = CLLocationManager()
+    let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
     
     @IBOutlet weak var latitude: UITextField!
     @IBOutlet weak var longitude: UITextField!
 
-    func askForLocationPermission() {
-        //ASK for permission
-//        self.locationManager.requestAlwaysAuthorization()
-        self.locationManager.requestWhenInUseAuthorization()
-        
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-            locationManager.startUpdatingLocation()
-        }
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let locationValue: CLLocationCoordinate2D = manager.location?.coordinate else {
-            return
-        }
-        self.latitude.text = String(locationValue.latitude)
-        self.longitude.text = String(locationValue.longitude)
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        self.loadAlertViewController(title: "Details not Found!", message: error.localizedDescription)
-    }
-    
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.navigationBar.isHidden = true
@@ -54,25 +30,19 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate {
         askForLocationPermission()
     }
     
-    //MARK:- IBActions
-    @IBAction func didTapToCheck(_ sender: Any) {
-        
-        if (!(latitude.text?.isEmpty)!) || (!(longitude.text?.isEmpty)!) {
-            self.fetchCurrentWeatherData()
-        } else {
-            self.loadAlertViewController(title: "Details not Found!", message: "Please, enter both latitude and longitude")
+    fileprivate func askForLocationPermission() {
+        self.locationManager.requestWhenInUseAuthorization()
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
         }
     }
     
-    func loadAlertViewController(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-        self.present(alert, animated: true, completion: nil)
-    }
-
     fileprivate func fetchCurrentWeatherData() {
         let forecastService = ForecastAPIService(APIKey: forecastAPIKey)
         forecastService.getForecast(latitude: Double(latitude.text!)!, longitude: Double(longitude.text!)!) { (currentWeather) in
+            self.removeActivityIndicator()
             if let currentWeather = currentWeather {
                 DispatchQueue.main.sync {
                     self.weatherReport = currentWeather
@@ -86,25 +56,79 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
+    //MARK:- location manager handler functions
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let locationValue: CLLocationCoordinate2D = manager.location?.coordinate else {
+            return
+        }
+        self.latitude.text = String(locationValue.latitude)
+        self.longitude.text = String(locationValue.longitude)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        self.loadAlertViewController(title: "Details not Found!", message: error.localizedDescription)
+    }
+    
+    func loadAlertViewController(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    //MARK:- IBAction
+    @IBAction func didTapToCheck(_ sender: Any) {
+        self.loadActivityIndicator()
+        if (!(latitude.text?.isEmpty)!) || (!(longitude.text?.isEmpty)!) {
+            locationManager.stopUpdatingLocation()
+            self.fetchCurrentWeatherData()
+        } else {
+            self.loadAlertViewController(title: "Details not Found!", message: "Please, enter both latitude and longitude")
+        }
+    }
+    
+    //MARK:- Segue function
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let currentWeatherViewController = segue.destination as? CurrentWeatherViewController {
             currentWeatherViewController.weather = weatherReport
         }
     }
+
+}
+
+//MARK:- Activity indicator functions
+extension LoginViewController {
     
+    func loadActivityIndicator() {
+        
+        self.activityIndicator.center = CGPoint(x: self.view.bounds.width/2, y: self.view.bounds.height/2)
+        self.activityIndicator.color = UIColor.darkGray
+        self.view.addSubview(activityIndicator)
+        self.activityIndicator.startAnimating()
+    }
+    
+    func removeActivityIndicator() {
+        DispatchQueue.main.async {
+            self.activityIndicator.stopAnimating()
+        }
+    }
+
 }
 
 //MARK:- Text Field Delegate
 extension LoginViewController: UITextFieldDelegate {
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-
-        if string.isEmpty { return true }
-        let currentText = textField.text ?? ""
-        let replacementText = (currentText as NSString).replacingCharacters(in: range, with: string)
         
-        // only has the specified amount of decimal places.
-        return replacementText.isValidDouble(maxDecimalPlaces: 4) || replacementText.beginsWithNegativeSign()
+        if textField.text  != "" || string != "" {
+            if textField.text?.first != "-" {
+                let result = (textField.text ?? "") + string
+                return Double(result) != nil
+            } else {
+                let result = (textField.text ?? "") + string
+                return result.beginsWithNegativeSign()
+            }
+        }
+        return true
     }
 
 }
@@ -128,12 +152,9 @@ extension String {
     
     func beginsWithNegativeSign() -> Bool {
         var negativeSign = false
-        if self.first == "-" {
-            negativeSign = true
-        }
         let remainingString = self.dropFirst()
-        if remainingString.contains("-") {
-            negativeSign = false
+        if Double(remainingString) != nil {
+            negativeSign = true
         }
         return negativeSign
     }
